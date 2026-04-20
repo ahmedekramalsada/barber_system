@@ -138,11 +138,21 @@ export default function POSView({ apiBase, onCheckout }) {
             <h3 className="card-header">👤 العميل</h3>
             {!selectedClient ? (
               <>
-                <select onChange={(e) => setSelectedClient(clients.find(c => c.id == e.target.value))} defaultValue="">
-                  <option value="" disabled>— اختر عميلاً —</option>
-                  {clients.map(c => <option key={c.id} value={c.id}>{c.name} • {c.phone}</option>)}
-                </select>
-                <div style={{ marginTop: '12px' }}>
+                <input 
+                  list="clients-datalist"
+                  placeholder="🔍 ابحث بالاسم أو رقم الهاتف..."
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    const client = clients.find(c => `${c.name} • ${c.phone}` === val);
+                    if (client) setSelectedClient(client);
+                  }}
+                  style={{ marginBottom: '12px' }}
+                />
+                <datalist id="clients-datalist">
+                  {clients.map(c => <option key={c.id} value={`${c.name} • ${c.phone}`} />)}
+                </datalist>
+                
+                <div>
                   {showAddClient ? (
                     <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px' }}>
                       <input placeholder="اسم العميل" value={newClientName} onChange={e => setNewClientName(e.target.value)} style={{marginBottom: 8}}/>

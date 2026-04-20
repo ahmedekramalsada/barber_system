@@ -46,8 +46,13 @@ if not exist "node_modules\" (
     call npm install >nul 2>&1
 )
 
-:: 5. START SYSTEM
-echo [3/3] النظام جاهز وسريع جداً! جاري الإقلاع...
+:: 5. KILL OLD PORTS (To prevent crashes if clicked multiple times)
+echo [3/4] جاري تجهيز المنافذ...
+FOR /F "tokens=5" %%a IN ('netstat -aon ^| findstr :8000') DO taskkill /F /PID %%a >nul 2>&1
+FOR /F "tokens=5" %%a IN ('netstat -aon ^| findstr :5173') DO taskkill /F /PID %%a >nul 2>&1
+
+:: 6. START SYSTEM
+echo [4/4] النظام جاهز وسريع جداً! جاري الإقلاع...
 start "Barber Backend Server" cmd /c "cd .. && python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000"
 start "Barber Frontend Browser" cmd /c "npm run dev -- --open"
 
