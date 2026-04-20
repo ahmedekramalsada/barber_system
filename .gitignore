@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env/
+.venv/
+venv.bak/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Database / LIVE POS Data
+# CRITICAL: We ignore data_pos/ because it contains live customer and invoice data!
+# The backend script will auto-hydrate these if they don't exist on standard fresh installs.
+data_pos/
+
+# OS/System
+.DS_Store
+Thumbs.db
