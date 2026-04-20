@@ -25,3 +25,4 @@ fi
 
 echo "جاري الإقلاع..."
 npm run dev -- --open
+ 
